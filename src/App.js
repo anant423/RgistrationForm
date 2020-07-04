@@ -56,8 +56,6 @@ class App extends Component {
   }
 
   handleSubmit = e => {
-    e.preventDefault();
-
     if (formValid(this.state)) {
       alert(`${this.state.Name} Registered Successfully !!!!`);
       console.log(this.state);
