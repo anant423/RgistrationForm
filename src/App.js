@@ -5,6 +5,8 @@ const EmailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 );
 
+const ContactRegex = RegExp(/^\d{10}$/);
+
 const formValid = ({ formErrors, ...rest }) => {
   let valid = true;
 
@@ -61,6 +63,7 @@ class App extends Component {
       console.log(this.state);
     } else {
       console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
+      alert(`Please fill all the fields properly`);
     }
   };
 
@@ -71,7 +74,7 @@ class App extends Component {
 
     switch (name) {
       case "Name":
-        formErrors.firstName =
+        formErrors.Name =
           value.length < 3 ? "minimum 3 characaters required" : "";
         break;
       case "ID":
@@ -83,13 +86,14 @@ class App extends Component {
           value.length < 3 ? "minimum 3 characaters required" : "";
         break;
       case "ContactNumber":
-        formErrors.ContactNumber =
-          value.length < 11 ? "minimum 10 characaters required" : "";
+        formErrors.ContactNumber = ContactRegex.test(value)
+          ? ""
+          : "Invalid Contact Number";
         break;
       case "Email":
         formErrors.Email = EmailRegex.test(value)
           ? ""
-          : "invalid email address";
+          : "Invalid Email Address";
         break;
       case "GSTNumber":
         formErrors.GSTNumber =
